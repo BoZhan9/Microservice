@@ -1,6 +1,9 @@
 package com.example.search.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.example.search.Service.SearchService;
+import com.example.search.pojo.entity.People;
+import com.sample.classmanagement.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SearchController {
 
+    private final SearchService searchService;
+
+    @Autowired
+    public SearchController(SearchService searchService) {
+        this.searchService = searchService;
+    }
+
     @GetMapping("/search")
     public ResponseEntity<?> getDetails() {
         //TODO
         return new ResponseEntity<>("this is search service", HttpStatus.OK);
+    }
+    @GetMapping("/search/people")
+    public ResponseEntity<People> getAllPeople() {
+        return new ResponseEntity<>(searchService.getAllUsers(), HttpStatus.OK);
     }
 }
